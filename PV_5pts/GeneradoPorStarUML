@@ -1,0 +1,122 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `ComprasProveedor`;
+DROP TABLE IF EXISTS `Proveedores`;
+DROP TABLE IF EXISTS `Productos`;
+DROP TABLE IF EXISTS `DetalleCompras`;
+DROP TABLE IF EXISTS `FacturaCompra`;
+DROP TABLE IF EXISTS `Clientes`;
+DROP TABLE IF EXISTS `FacturaVenta`;
+DROP TABLE IF EXISTS `DetalleVentas`;
+DROP TABLE IF EXISTS `Personas`;
+DROP TABLE IF EXISTS `Direccion`;
+DROP TABLE IF EXISTS `Departamento`;
+DROP TABLE IF EXISTS `Municipio`;
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE `ComprasProveedor` (
+    `Column1` INTEGER NOT NULL
+);
+
+CREATE TABLE `Proveedores` (
+    `IdProveedor` INTEGER NOT NULL,
+    `Organizacion` VARCHAR(50) NOT NULL,
+    `NumTelefono` INTEGER NOT NULL,
+    `Estado` BOOLEAN NOT NULL,
+    `Column1` INTEGER NOT NULL,
+    `IdPersona` INTEGER NOT NULL,
+    PRIMARY KEY (`IdProveedor`)
+);
+
+CREATE TABLE `Productos` (
+    `IdProductos` INTEGER NOT NULL,
+    `Nombre` VARCHAR(25) NOT NULL,
+    `Descripcion` VARCHAR(255) NOT NULL,
+    `CodigoProducto` VARCHAR(8) NOT NULL,
+    `Canitdad` INTEGER NOT NULL,
+    `PrecioCompra` DECIMAL(9,2) NOT NULL,
+    `PrecioVenta` DECIMAL(9,2) NOT NULL,
+    `Estado` BOOLEAN NOT NULL,
+    PRIMARY KEY (`IdProductos`),
+    UNIQUE (`CodigoProducto`)
+);
+
+CREATE TABLE `DetalleCompras` (
+    `IdDetalleCompra` INTEGER NOT NULL,
+    `IdFactura` INTEGER NOT NULL,
+    `IdProducto` INTEGER NOT NULL,
+    `Descripcion` INTEGER NOT NULL,
+    `Cantidad` INTEGER NOT NULL,
+    `Precio` DECIMAL(9,2) NOT NULL,
+    PRIMARY KEY (`IdDetalleCompra`)
+);
+
+CREATE TABLE `FacturaCompra` (
+    `IdFactura` INTEGER NOT NULL,
+    `IdProveedor` INTEGER NOT NULL,
+    `Fecha` DATE NOT NULL,
+    PRIMARY KEY (`IdFactura`)
+);
+
+CREATE TABLE `Clientes` (
+    `IdCliente` INTEGER NOT NULL,
+    `PrimerNombre` VARCHAR(25) NOT NULL,
+    `PrimerApellido` VARCHAR(25) NOT NULL,
+    `Telefono` INTEGER NOT NULL,
+    `NIT` VARCHAR(12) NOT NULL,
+    `SegundoNombre` INTEGER NOT NULL,
+    `SegundoApellido` INTEGER NOT NULL,
+    `IdPersona` INTEGER NOT NULL,
+    PRIMARY KEY (`IdCliente`)
+);
+
+CREATE TABLE `FacturaVenta` (
+    `IdFacturaVenta` INTEGER NOT NULL,
+    `IdCliente` INTEGER NOT NULL,
+    `Fecha` DATE NOT NULL,
+    PRIMARY KEY (`IdFacturaVenta`)
+);
+
+CREATE TABLE `DetalleVentas` (
+    `IdDetalleCompra` INTEGER NOT NULL,
+    `IdFacturaVenta` INTEGER NOT NULL,
+    `IdProducto` INTEGER NOT NULL,
+    `Cantidad` INTEGER NOT NULL,
+    `Precio` DECIMAL NOT NULL,
+    PRIMARY KEY (`IdDetalleCompra`)
+);
+
+CREATE TABLE `Personas` (
+    `IdPersona` INTEGER NOT NULL,
+    `PrimerNombre` VARCHAR(15) NOT NULL,
+    `SegundoNombre` VARCHAR(15) NOT NULL,
+    `PrimerApellido` VARCHAR(10) NOT NULL,
+    `SegundoApellido` VARCHAR(10) NOT NULL,
+    `NumTelefono` INTEGER NOT NULL,
+    `IdDireccion` INTEGER NOT NULL,
+    PRIMARY KEY (`IdPersona`, `IdDireccion`)
+);
+
+CREATE TABLE `Direccion` (
+    `IdDireccion` INTEGER NOT NULL,
+    `IdMunicipio` INTEGER NOT NULL,
+    `Calle` INTEGER NOT NULL,
+    `Calle` VARCHAR(25) NOT NULL,
+    `Avenida` VARCHAR(25) NOT NULL,
+    `Casa` VARCHAR(10) NOT NULL,
+    `Zona` INTEGER NOT NULL,
+    PRIMARY KEY (`IdDireccion`)
+);
+
+CREATE TABLE `Departamento` (
+    `IdDepartamento` INTEGER NOT NULL,
+    `Nombre` VARCHAR(25) NOT NULL,
+    PRIMARY KEY (`IdDepartamento`),
+    UNIQUE (`Nombre`)
+);
+
+CREATE TABLE `Municipio` (
+    `IdMunicipo` INTEGER NOT NULL,
+    `Nombre` VARCHAR(25) NOT NULL,
+    `IdDepartamento` INTEGER NOT NULL,
+    PRIMARY KEY (`IdMunicipo`)
+);
